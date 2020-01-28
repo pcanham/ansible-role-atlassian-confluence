@@ -1,0 +1,23 @@
+---
+- name: Set Application home path
+  lineinfile: >
+    dest=/app/atlassian/atlassian-{{ app_name }}/{{ app_name }}/WEB-INF/classes/{{ app_name }}-init.properties
+    regexp='^confluence.home ='
+    line='confluence.home = {{ app_home }}'
+- name: Set Application user
+  lineinfile: >
+    dest=/app/atlassian/atlassian-{{ app_name }}/bin/user.sh
+    regexp='^CONF_USER="" ##'
+    line='CONF_USER="{{ app_username }}" ##'
+- name: Set JVM Minimum Memory
+  lineinfile: >
+    dest=/app/atlassian/atlassian-{{ app_name }}/bin/setenv.sh
+    regexp='^(.*)Xms(\\d+)(.*)$'
+    line='\1Xms{{ app_jvm_min_memory }}\3'
+    backrefs=yes
+- name: Set JVM Maximum Memory
+  lineinfile: >
+    dest=/app/atlassian/atlassian-{{ app_name }}/bin/setenv.sh
+    regexp='^(.*)Xmx(\\d+)(.*)$'
+    line='\1Xmx{{ app_jvm_max_memory }}\3'
+    backrefs=yes

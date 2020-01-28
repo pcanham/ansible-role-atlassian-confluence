@@ -1,0 +1,7 @@
+app_name: confluence
+app_username: confluence
+app_group: confluence
+app_jvm_min_memory: 4096
+app_jvm_max_memory: 4096
+app_path: /app/atlassian/atlassian-confluence
+app_home: /app/atlassian/confluencehome

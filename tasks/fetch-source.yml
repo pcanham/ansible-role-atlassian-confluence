@@ -1,0 +1,22 @@
+---
+- name: create directories for Application
+  file:
+    path: "{{ item.directory }}"
+    state: directory
+    owner: "{{ app_username }}"
+    group: "{{ app_group }}"
+    mode: 0755
+  with_items:
+    - { directory: "/app/atlassian" }
+    - { directory: "{{ app_home }}" }
+    - { directory: "/app/src" }
+- name: download mysql connector
+  get_url:
+    url: "https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-{{ mysql_connector_version }}.tar.gz"
+    dest: /app/src/mysql-connector-java-{{ mysql_connector_version }}.tar.gz
+    timeout: 30
+- name: download atlassian application
+  get_url:
+    url: "https://www.atlassian.com/software/{{ app_name }}/downloads/binary/atlassian-{{ app_name }}-{{ app_version }}.tar.gz"
+    dest: "/app/src/atlassian-{{ app_name }}-{{ app_version }}.tar.gz"
+    timeout: 30

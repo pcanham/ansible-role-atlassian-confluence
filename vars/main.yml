@@ -1,0 +1,4 @@
+# vim: sw=2 ts=2 et :
+---
+mysql_connector_version: 5.1.46
+app_version: 5.10.3

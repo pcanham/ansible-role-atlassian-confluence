@@ -1,0 +1,16 @@
+[Unit]
+Description=Atlassian Service
+After=network.target iptables.service firewalld.service
+
+[Service]
+Type=forking
+User={{ app_username }}
+Group={{ app_group }}
+Environment=JRE_HOME={{ java_path }}/{{ java_folder }}
+Environment=CONF_HOME={{ app_home }}
+PIDFile={{ app_path }}/work/catalina.pid
+ExecStart={{ app_path }}/bin/start-{{ app_name }}.sh
+ExecStop={{ app_path }}/bin/stop-{{ app_name }}.sh
+
+[Install]
+WantedBy=multi-user.target
